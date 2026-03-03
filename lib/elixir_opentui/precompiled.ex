@@ -8,7 +8,8 @@ defmodule ElixirOpentui.Precompiled do
   to `nil` and triggering source compilation as a fallback.
   """
 
-  @base_url "https://github.com/jyooi/elixir-opentui/releases/download/v#VERSION"
+  @version Mix.Project.config()[:version]
+  @base_url "https://github.com/jyooi/elixir-opentui/releases/download/v#{@version}"
 
   @doc "Precompiled config for ElixirOpentui.NIF"
   def nif_precompiled do
