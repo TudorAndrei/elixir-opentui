@@ -13,7 +13,7 @@ format_shasums = fn path ->
   {shasums, _} = path |> File.read!() |> Code.eval_string()
 
   shasums
-  |> Enum.map(fn {k, v} -> ~s(    "#{k}": "#{v}") end)
+  |> Enum.map(fn {k, v} -> ~s(      "#{k}": "#{v}") end)
   |> Enum.join(",\n")
 end
 
