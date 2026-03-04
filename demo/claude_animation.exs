@@ -1,10 +1,7 @@
-# LEGACY: See demo/claude_animation_demo.exs for the widget-based version.
-# This file drives NativeBuffer directly; kept for reference.
-#
-# CLAUDE Animation Demo
+# Claude Animation Demo (NIF Pipeline)
 # Run: mix run demo/claude_animation.exs
 #
-# Showcases the full NIF render pipeline:
+# Drives NativeBuffer directly to showcase the full NIF render pipeline:
 #   NativeBuffer → batch binary protocol → Zig diff → ANSI → stdout
 
 alias ElixirOpentui.NativeBuffer
