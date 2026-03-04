@@ -107,7 +107,7 @@ defmodule WidgetGallery do
       text(content: "Tab: next widget | Shift+Tab: prev | Ctrl+C: quit", fg: dim, bg: bg)
       text(content: "")
 
-      # ── TextInput ──
+      # --- TextInput ---
       label(content: section_label(:text_input, focused, "TextInput"), fg: accent, bg: bg)
       input(
         id: :text_input,
@@ -122,7 +122,7 @@ defmodule WidgetGallery do
       )
       text(content: "")
 
-      # ── Select ──
+      # --- Select ---
       label(content: section_label(:lang_select, focused, "Select"), fg: accent, bg: bg)
       select(
         id: :lang_select,
@@ -136,13 +136,13 @@ defmodule WidgetGallery do
       )
       text(content: "")
 
-      # ── Checkboxes ──
+      # --- Checkboxes ---
       label(content: section_label_multi([:check_dark, :check_notify], focused, "Checkboxes"), fg: accent, bg: bg)
       checkbox(id: :check_dark, checked: state.check_dark.checked, label: state.check_dark.label, fg: fg, bg: bg)
       checkbox(id: :check_notify, checked: state.check_notify.checked, label: state.check_notify.label, fg: fg, bg: bg)
       text(content: "")
 
-      # ── ScrollBox ──
+      # --- ScrollBox ---
       label(content: section_label(:scroller, focused, "ScrollBox"), fg: accent, bg: bg)
       scroll_box id: :scroller, scroll_y: scroll_y, height: @scroll_viewport do
         for line <- visible_lines do

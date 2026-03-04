@@ -48,7 +48,7 @@ defmodule SpaceDodge do
   @star_count 80
   @space_bg Color.rgb(5, 5, 15)
 
-  # ── init ──────────────────────────────────────────────────────────
+  # --- init ---
 
   def init(cols, rows) do
     canvas_w = max(20, cols - 6)
@@ -92,7 +92,7 @@ defmodule SpaceDodge do
     |> Timeline.play()
   end
 
-  # ── handle_event ──────────────────────────────────────────────────
+  # --- handle_event ---
 
   def handle_event(%{type: :key, key: "c", ctrl: true, meta: false}, _state), do: :quit
   def handle_event(%{type: :key, key: "q", meta: false}, _state), do: :quit
@@ -128,7 +128,7 @@ defmodule SpaceDodge do
 
   def handle_event(_event, state), do: {:cont, state}
 
-  # ── handle_tick ───────────────────────────────────────────────────
+  # --- handle_tick ---
 
   def handle_tick(dt, %{phase: :game_over} = state) do
     # Only advance shake + particles during game over
@@ -232,7 +232,7 @@ defmodule SpaceDodge do
     end
   end
 
-  # ── render ────────────────────────────────────────────────────────
+  # --- render ---
 
   def render(state) do
     import ElixirOpentui.View
@@ -300,7 +300,7 @@ defmodule SpaceDodge do
 
   def focused_id(_state), do: nil
 
-  # ── Canvas rendering ──────────────────────────────────────────────
+  # --- Canvas rendering ---
 
   defp build_canvas(state) do
     w = state.canvas_w
@@ -455,7 +455,7 @@ defmodule SpaceDodge do
     end)
   end
 
-  # ── Entity helpers ────────────────────────────────────────────────
+  # --- Entity helpers ---
 
   defp generate_stars(w, h) do
     for _ <- 1..@star_count do
@@ -625,7 +625,7 @@ defmodule SpaceDodge do
     end)
   end
 
-  # ── Color helpers ─────────────────────────────────────────────────
+  # --- Color helpers ---
 
   defp hsl_to_rgb(h, s, l) do
     h = h / 1.0

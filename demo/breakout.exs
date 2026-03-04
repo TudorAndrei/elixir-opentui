@@ -46,7 +46,7 @@ defmodule Breakout do
 
   @trail_life 80.0
 
-  # ── init ──────────────────────────────────────────────────────────
+  # --- init ---
 
   def init(cols, rows) do
     canvas_w = max(30, cols - 6)
@@ -109,7 +109,7 @@ defmodule Breakout do
     |> Timeline.play()
   end
 
-  # ── handle_event ──────────────────────────────────────────────────
+  # --- handle_event ---
 
   def handle_event(%{type: :key, key: "c", ctrl: true, meta: false}, _state), do: :quit
   def handle_event(%{type: :key, key: "q", meta: false}, _state), do: :quit
@@ -168,7 +168,7 @@ defmodule Breakout do
 
   def handle_event(_event, state), do: {:cont, state}
 
-  # ── handle_tick ───────────────────────────────────────────────────
+  # --- handle_tick ---
 
   def handle_tick(dt, %{phase: phase} = state) when phase in [:title, :paused] do
     tl = Timeline.advance(state.timeline, dt)
@@ -368,7 +368,7 @@ defmodule Breakout do
     end
   end
 
-  # ── render ────────────────────────────────────────────────────────
+  # --- render ---
 
   def render(state) do
     import ElixirOpentui.View
@@ -445,7 +445,7 @@ defmodule Breakout do
 
   def focused_id(_state), do: nil
 
-  # ── Canvas rendering ──────────────────────────────────────────────
+  # --- Canvas rendering ---
 
   defp build_canvas(state) do
     w = state.canvas_w
@@ -605,7 +605,7 @@ defmodule Breakout do
 
   defp draw_overlay(canvas, _state, _w, _h), do: canvas
 
-  # ── Brick generation ──────────────────────────────────────────────
+  # --- Brick generation ---
 
   defp setup_level(state) do
     bricks = generate_bricks(state.canvas_w, state.level)
@@ -641,7 +641,7 @@ defmodule Breakout do
     end
   end
 
-  # ── Paddle movement (velocity-based) ─────────────────────────────
+  # --- Paddle movement (velocity-based) ---
 
   defp apply_paddle_movement(state, dt) do
     if state.paddle_dir != :none and
@@ -656,7 +656,7 @@ defmodule Breakout do
     end
   end
 
-  # ── Ball placement ────────────────────────────────────────────────
+  # --- Ball placement ---
 
   defp place_ball_on_paddle(state) do
     bx = state.paddle_x + @paddle_width / 2.0
@@ -665,7 +665,7 @@ defmodule Breakout do
     %{state | ball_x: bx, ball_y: by, ball_vx: 0.0, ball_vy: 0.0}
   end
 
-  # ── Paddle-ball collision ─────────────────────────────────────────
+  # --- Paddle-ball collision ---
 
   defp check_paddle_collision(bx, by, vx, vy, paddle_x, paddle_y, ball_speed) do
     # Only check when ball is moving downward
@@ -693,7 +693,7 @@ defmodule Breakout do
     end
   end
 
-  # ── Brick collision ───────────────────────────────────────────────
+  # --- Brick collision ---
 
   defp check_brick_collisions(bricks, bx, by, vx, vy, _prev_bx, _prev_by, _timeline) do
     # Check each brick for AABB collision with the ball
@@ -755,7 +755,7 @@ defmodule Breakout do
     end
   end
 
-  # ── Particles ─────────────────────────────────────────────────────
+  # --- Particles ---
 
   defp spawn_brick_break_particles(brick) do
     cx = brick.x + @brick_width / 2.0
@@ -863,7 +863,7 @@ defmodule Breakout do
     |> Enum.filter(fn t -> t.life > 0.0 end)
   end
 
-  # ── Shake ─────────────────────────────────────────────────────────
+  # --- Shake ---
 
   defp advance_shake(nil, _dt), do: {nil, 0, 0}
 
@@ -876,7 +876,7 @@ defmodule Breakout do
     {tl, sx, sy}
   end
 
-  # ── FPS tracking ──────────────────────────────────────────────────
+  # --- FPS tracking ---
 
   defp update_fps(state, dt) do
     elapsed = state.elapsed + dt
@@ -898,7 +898,7 @@ defmodule Breakout do
       fps_last_time: fps_last_time}
   end
 
-  # ── Game flow ─────────────────────────────────────────────────────
+  # --- Game flow ---
 
   defp restart_game(state) do
     %{state |
@@ -925,7 +925,7 @@ defmodule Breakout do
     |> place_ball_on_paddle()
   end
 
-  # ── Color helpers ─────────────────────────────────────────────────
+  # --- Color helpers ---
 
   defp hsl_to_rgb(h, s, l) do
     h = h / 1.0

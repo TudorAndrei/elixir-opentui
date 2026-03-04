@@ -125,7 +125,7 @@ defmodule PotionLab do
   end
 end
 
-# ── Storyboard Scenes ──────────────────────────────────────────────────────
+# --- Storyboard Scenes ---
 
 alias ElixirOpentui.Renderer
 

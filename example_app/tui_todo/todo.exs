@@ -55,7 +55,7 @@ defmodule TodoApp do
     }
   end
 
-  # ── Event Handling ──────────────────────────────────────────────
+  # --- Event Handling ---
 
   def handle_event(%{type: :key, key: "c", ctrl: true, meta: false}, _state), do: :quit
 
@@ -94,7 +94,7 @@ defmodule TodoApp do
 
   def handle_event(_event, state), do: {:cont, state}
 
-  # ── Event Routing ───────────────────────────────────────────────
+  # --- Event Routing ---
   #
   # TODO: This is where you implement the core event routing logic.
   #
@@ -204,7 +204,7 @@ defmodule TodoApp do
     end
   end
 
-  # ── Rendering ───────────────────────────────────────────────────
+  # --- Rendering ---
 
   def render(state) do
     import ElixirOpentui.View
@@ -260,7 +260,7 @@ defmodule TodoApp do
       text(content: "Enter: add | Space: toggle | d: delete", fg: dim, bg: bg)
       text(content: "")
 
-      # ── Input section ──
+      # --- Input section ---
       label(content: input_label, fg: accent, bg: bg)
       input(
         id: :todo_input,
@@ -275,7 +275,7 @@ defmodule TodoApp do
       )
       text(content: "")
 
-      # ── Filter tabs ──
+      # --- Filter tabs ---
       label(content: filter_label, fg: accent, bg: bg)
       tab_select(
         id: :filter_tabs,
@@ -290,7 +290,7 @@ defmodule TodoApp do
       )
       text(content: "")
 
-      # ── Todo list ──
+      # --- Todo list ---
       text(content: divider, fg: divider_fg, bg: bg)
 
       if todo_lines == [] do
@@ -305,7 +305,7 @@ defmodule TodoApp do
 
       text(content: divider, fg: divider_fg, bg: bg)
 
-      # ── Status ──
+      # --- Status ---
       text(content: status_text, fg: status_fg, bg: bg)
     end
   end
@@ -318,7 +318,7 @@ defmodule TodoApp do
     end
   end
 
-  # ── Helpers ──────────────────────────────────────────────────────
+  # --- Helpers ---
 
   defp filtered_todos(state) do
     case state.filter do

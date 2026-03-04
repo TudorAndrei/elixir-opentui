@@ -9,7 +9,7 @@
 
 alias ElixirOpentui.NativeBuffer
 
-# ── Font: 7×7 pixel letters ─────────────────────────────────────────────────
+# --- Font: 7×7 pixel letters ---
 
 font = %{
   ?C => [
@@ -68,7 +68,7 @@ font = %{
   ]
 }
 
-# ── Color utilities ──────────────────────────────────────────────────────────
+# --- Color utilities ---
 
 hsl_to_rgb = fn h, s, l ->
   h = :math.fmod(h + 0.0, 360.0)
@@ -99,7 +99,7 @@ end
 
 black = {0, 0, 0, 255}
 
-# ── Terminal setup ───────────────────────────────────────────────────────────
+# --- Terminal setup ---
 
 # Save terminal state and enter raw mode
 old_stty = String.trim(IO.chardata_to_string(:os.cmd(~c"stty -g < /dev/tty")))
@@ -114,7 +114,7 @@ IO.write("\e[?1049h\e[?25l\e[2J")
 cols = String.trim(cols_str) |> String.to_integer()
 rows = String.trim(rows_str) |> String.to_integer()
 
-# ── Boot sequence ────────────────────────────────────────────────────────────
+# --- Boot sequence ---
 
 boot_lines = [
   {"> Initializing ElixirOpentui NIF renderer...", 300},
@@ -147,7 +147,7 @@ end
 
 Process.sleep(300)
 
-# ── Input reader process ─────────────────────────────────────────────────────
+# --- Input reader process ---
 
 parent = self()
 
@@ -177,12 +177,12 @@ input_pid =
     end
   end)
 
-# ── Initialize NIF buffer ───────────────────────────────────────────────────
+# --- Initialize NIF buffer ---
 
 IO.write("\e[2J")
 buf = NativeBuffer.new(cols, rows)
 
-# ── Animation state ──────────────────────────────────────────────────────────
+# --- Animation state ---
 
 text = ~c"CLAUDE"
 letter_w = 7
@@ -217,7 +217,7 @@ line_y = text_y + 8
 line_x = text_x - 2
 line_w = text_total_w + 4
 
-# ── Animation loop ───────────────────────────────────────────────────────────
+# --- Animation loop ---
 
 start_time = System.monotonic_time(:millisecond)
 
@@ -409,7 +409,7 @@ end
 
 result = animate.(animate, buf, 0, initial_particles)
 
-# ── Cleanup ──────────────────────────────────────────────────────────────────
+# --- Cleanup ---
 
 Process.unlink(input_pid)
 Process.exit(input_pid, :kill)
