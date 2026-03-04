@@ -46,7 +46,7 @@ defmodule Breakout do
 
   @trail_life 80.0
 
-  # ── init ──────────────────────────────────────────────────────────
+  # --- init ---
 
   def init(cols, rows) do
     canvas_w = max(30, cols - 6)
@@ -109,7 +109,7 @@ defmodule Breakout do
     |> Timeline.play()
   end
 
-  # ── handle_event ──────────────────────────────────────────────────
+  # --- handle_event ---
 
   def handle_event(%{type: :key, key: "c", ctrl: true, meta: false}, _state), do: :quit
   def handle_event(%{type: :key, key: "q", meta: false}, _state), do: :quit
@@ -168,7 +168,7 @@ defmodule Breakout do
 
   def handle_event(_event, state), do: {:cont, state}
 
-  # ── handle_tick ───────────────────────────────────────────────────
+  # --- handle_tick ---
 
   def handle_tick(dt, %{phase: phase} = state) when phase in [:title, :paused] do
     tl = Timeline.advance(state.timeline, dt)
@@ -368,7 +368,7 @@ defmodule Breakout do
     end
   end
 
-  # ── render ────────────────────────────────────────────────────────
+  # --- render ---
 
   def render(state) do
     import ElixirOpentui.View
@@ -376,8 +376,7 @@ defmodule Breakout do
     canvas = build_canvas(state)
 
     score_hue = Timeline.value(state.timeline, :score_hue)
-    {sr, sg, sb} = hsl_to_rgb(score_hue, 0.8, 0.65)
-    score_fg = Color.rgb(sr, sg, sb)
+    score_fg = Color.hsl(score_hue, 0.8, 0.65)
 
     dim_fg = Color.rgb(80, 80, 100)
     panel_fg = Color.rgb(60, 80, 120)
@@ -445,7 +444,7 @@ defmodule Breakout do
 
   def focused_id(_state), do: nil
 
-  # ── Canvas rendering ──────────────────────────────────────────────
+  # --- Canvas rendering ---
 
   defp build_canvas(state) do
     w = state.canvas_w
@@ -472,8 +471,7 @@ defmodule Breakout do
       by = brick.y + sy
       {base_h, s, l} = brick.color
       h = base_h + hue_shift
-      {r, g, b} = hsl_to_rgb(h, s, l)
-      fg = Color.rgb(r, g, b)
+      fg = Color.hsl(h, s, l)
 
       fill = Map.get(@fill_chars, min(brick.hits, 3), "░")
 
@@ -554,7 +552,7 @@ defmodule Breakout do
 
       if px >= 0 and px < w and py >= 0 and py < h do
         life_ratio = p.life / p.max_life
-        {pr, pg, pb} = hsl_to_rgb(p.hue, 0.8, max(0.2, 0.6 * life_ratio))
+        {pr, pg, pb, _} = Color.hsl(p.hue, 0.8, max(0.2, 0.6 * life_ratio))
         brightness = trunc(200 * life_ratio) |> max(0) |> min(255)
         fg = Color.rgb(max(pr, brightness), pg, pb)
         Canvas.set_cell(c, px, py, p.char, fg, @bg)
@@ -605,7 +603,7 @@ defmodule Breakout do
 
   defp draw_overlay(canvas, _state, _w, _h), do: canvas
 
-  # ── Brick generation ──────────────────────────────────────────────
+  # --- Brick generation ---
 
   defp setup_level(state) do
     bricks = generate_bricks(state.canvas_w, state.level)
@@ -641,7 +639,7 @@ defmodule Breakout do
     end
   end
 
-  # ── Paddle movement (velocity-based) ─────────────────────────────
+  # --- Paddle movement (velocity-based) ---
 
   defp apply_paddle_movement(state, dt) do
     if state.paddle_dir != :none and
@@ -656,7 +654,7 @@ defmodule Breakout do
     end
   end
 
-  # ── Ball placement ────────────────────────────────────────────────
+  # --- Ball placement ---
 
   defp place_ball_on_paddle(state) do
     bx = state.paddle_x + @paddle_width / 2.0
@@ -665,7 +663,7 @@ defmodule Breakout do
     %{state | ball_x: bx, ball_y: by, ball_vx: 0.0, ball_vy: 0.0}
   end
 
-  # ── Paddle-ball collision ─────────────────────────────────────────
+  # --- Paddle-ball collision ---
 
   defp check_paddle_collision(bx, by, vx, vy, paddle_x, paddle_y, ball_speed) do
     # Only check when ball is moving downward
@@ -693,7 +691,7 @@ defmodule Breakout do
     end
   end
 
-  # ── Brick collision ───────────────────────────────────────────────
+  # --- Brick collision ---
 
   defp check_brick_collisions(bricks, bx, by, vx, vy, _prev_bx, _prev_by, _timeline) do
     # Check each brick for AABB collision with the ball
@@ -755,7 +753,7 @@ defmodule Breakout do
     end
   end
 
-  # ── Particles ─────────────────────────────────────────────────────
+  # --- Particles ---
 
   defp spawn_brick_break_particles(brick) do
     cx = brick.x + @brick_width / 2.0
@@ -863,7 +861,7 @@ defmodule Breakout do
     |> Enum.filter(fn t -> t.life > 0.0 end)
   end
 
-  # ── Shake ─────────────────────────────────────────────────────────
+  # --- Shake ---
 
   defp advance_shake(nil, _dt), do: {nil, 0, 0}
 
@@ -876,7 +874,7 @@ defmodule Breakout do
     {tl, sx, sy}
   end
 
-  # ── FPS tracking ──────────────────────────────────────────────────
+  # --- FPS tracking ---
 
   defp update_fps(state, dt) do
     elapsed = state.elapsed + dt
@@ -898,7 +896,7 @@ defmodule Breakout do
       fps_last_time: fps_last_time}
   end
 
-  # ── Game flow ─────────────────────────────────────────────────────
+  # --- Game flow ---
 
   defp restart_game(state) do
     %{state |
@@ -925,35 +923,6 @@ defmodule Breakout do
     |> place_ball_on_paddle()
   end
 
-  # ── Color helpers ─────────────────────────────────────────────────
-
-  defp hsl_to_rgb(h, s, l) do
-    h = h / 1.0
-    h = h - Float.floor(h / 360.0) * 360.0
-    c = (1.0 - abs(2.0 * l - 1.0)) * s
-    x = c * (1.0 - abs(rem_float(h / 60.0, 2.0) - 1.0))
-    m = l - c / 2.0
-
-    {r1, g1, b1} =
-      cond do
-        h < 60 -> {c, x, 0.0}
-        h < 120 -> {x, c, 0.0}
-        h < 180 -> {0.0, c, x}
-        h < 240 -> {0.0, x, c}
-        h < 300 -> {x, 0.0, c}
-        true -> {c, 0.0, x}
-      end
-
-    {
-      trunc((r1 + m) * 255) |> max(0) |> min(255),
-      trunc((g1 + m) * 255) |> max(0) |> min(255),
-      trunc((b1 + m) * 255) |> max(0) |> min(255)
-    }
-  end
-
-  defp rem_float(a, b) do
-    a - Float.floor(a / b) * b
-  end
 end
 
 ElixirOpentui.Demo.DemoRunner.run(Breakout)

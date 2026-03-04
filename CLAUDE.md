@@ -15,14 +15,17 @@ Terminal UI framework for Elixir with a Zig NIF backend.
 - **Key events**: All key events from `Input.parse` MUST include `meta: false` — widgets pattern-match on it.
 - **Demo scripts**: Must run via `mix run demo/name.exs`, not bare `elixir`.
 
-## Releasing prebuilt NIFs
+## Code Consistency Protocol
 
-1. Trigger the **Precompile NIFs** workflow (`workflow_dispatch`) with the version tag (e.g. `v0.1.0`)
-2. Workflow compiles 8 platforms, uploads to draft GitHub release, updates `precompiled.ex`, and opens a PR automatically
-3. Merge the auto-PR with updated shasums
-4. Tag: `git pull && git tag vX.Y.Z && git push origin vX.Y.Z`
-5. Undraft: `gh release edit vX.Y.Z --draft=false`
-6. Publish: `mix hex.publish && mix hex.publish docs`
-7. Force source compilation (for local testing): `ZIGLER_PRECOMPILE_FORCE_RECOMPILE=true mix compile`
+- Scan surrounding files (same directory + parent) for existing patterns before any code change
+- If you detect conflicting patterns → STOP and ask the human which is canonical
 
-See `AGENTS.md` for domain-specific development guidance (widgets, demos, NIFs).
+## Domain Docs
+
+Read these on-demand when working in a specific area:
+
+- [Canonical Patterns](docs/canonical-patterns.md) — naming, types, and code conventions
+- [Widget Development](docs/widget-development.md) — component contract, integration points, style system
+- [Demo Development](docs/demo-development.md) — DemoRunner protocol, terminal I/O patterns
+- [Zig NIF Development](docs/zig-nif-development.md) — zigler pattern, vendored sources, wrappers
+- [Releasing](docs/releasing.md) — prebuilt NIF release workflow

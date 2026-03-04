@@ -1,10 +1,8 @@
-# Potion Brewing Lab Demo
+# Potion Brewing Lab — Static Component Showcase
 # Run: mix run demo/potion_lab.exs
 #
-# Showcases the high-level component API:
-#   Component behaviour + View DSL + Renderer.render_full → ANSI color output
-#
-# 4 storyboard scenes rendered progressively with full 24-bit color.
+# Non-interactive: renders 4 storyboard scenes using Component + View DSL +
+# Renderer.render_full. Unlike other demos, does NOT use DemoRunner.
 
 defmodule PotionLab do
   use ElixirOpentui.Component
@@ -125,7 +123,7 @@ defmodule PotionLab do
   end
 end
 
-# ── Storyboard Scenes ──────────────────────────────────────────────────────
+# --- Storyboard Scenes ---
 
 alias ElixirOpentui.Renderer
 

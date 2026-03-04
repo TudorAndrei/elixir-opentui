@@ -72,9 +72,57 @@ defmodule ElixirOpentui.ColorTest do
     end
 
     test "invalid hex" do
-      assert Color.from_hex("not-a-hex") == :error
-      assert Color.from_hex("#GG0000") == :error
-      assert Color.from_hex("#FF") == :error
+      assert Color.from_hex("not-a-hex") == {:error, :invalid_hex}
+      assert Color.from_hex("#GG0000") == {:error, :invalid_hex}
+      assert Color.from_hex("#FF") == {:error, :invalid_hex}
+    end
+  end
+
+  describe "hsl/3" do
+    test "pure red at 0°" do
+      assert Color.hsl(0.0, 1.0, 0.5) == {255, 0, 0, 255}
+    end
+
+    test "pure green at 120°" do
+      assert Color.hsl(120.0, 1.0, 0.5) == {0, 255, 0, 255}
+    end
+
+    test "pure blue at 240°" do
+      assert Color.hsl(240.0, 1.0, 0.5) == {0, 0, 255, 255}
+    end
+
+    test "white at full lightness" do
+      assert Color.hsl(0.0, 0.0, 1.0) == {255, 255, 255, 255}
+    end
+
+    test "black at zero lightness" do
+      assert Color.hsl(0.0, 0.0, 0.0) == {0, 0, 0, 255}
+    end
+
+    test "50% grey at zero saturation" do
+      {r, g, b, 255} = Color.hsl(0.0, 0.0, 0.5)
+      assert r == g and g == b
+      assert r in 127..128
+    end
+
+    test "hue wraps past 360" do
+      assert Color.hsl(360.0, 1.0, 0.5) == Color.hsl(0.0, 1.0, 0.5)
+      assert Color.hsl(480.0, 1.0, 0.5) == Color.hsl(120.0, 1.0, 0.5)
+    end
+
+    test "negative hue wraps" do
+      assert Color.hsl(-120.0, 1.0, 0.5) == Color.hsl(240.0, 1.0, 0.5)
+    end
+
+    test "returns opaque color" do
+      {_r, _g, _b, a} = Color.hsl(180.0, 0.8, 0.65)
+      assert a == 255
+    end
+
+    test "integer hue works" do
+      # Ensure integer arguments don't cause errors
+      result = Color.hsl(120, 1.0, 0.5)
+      assert result == {0, 255, 0, 255}
     end
   end
 

@@ -43,14 +43,14 @@ defmodule WidgetGallery do
     }
   end
 
-  def handle_event(%{type: :key, key: "c", ctrl: true}, _state), do: :quit
+  def handle_event(%{type: :key, key: "c", ctrl: true, meta: false}, _state), do: :quit
 
-  def handle_event(%{type: :key, key: :tab, shift: true}, state) do
+  def handle_event(%{type: :key, key: :tab, shift: true, meta: false}, state) do
     new_idx = rem(state.focus_idx - 1 + length(@focus_order), length(@focus_order))
     {:cont, %{state | focus_idx: new_idx}}
   end
 
-  def handle_event(%{type: :key, key: :tab}, state) do
+  def handle_event(%{type: :key, key: :tab, meta: false}, state) do
     new_idx = rem(state.focus_idx + 1, length(@focus_order))
     {:cont, %{state | focus_idx: new_idx}}
   end
@@ -107,7 +107,7 @@ defmodule WidgetGallery do
       text(content: "Tab: next widget | Shift+Tab: prev | Ctrl+C: quit", fg: dim, bg: bg)
       text(content: "")
 
-      # ── TextInput ──
+      # --- TextInput ---
       label(content: section_label(:text_input, focused, "TextInput"), fg: accent, bg: bg)
       input(
         id: :text_input,
@@ -122,7 +122,7 @@ defmodule WidgetGallery do
       )
       text(content: "")
 
-      # ── Select ──
+      # --- Select ---
       label(content: section_label(:lang_select, focused, "Select"), fg: accent, bg: bg)
       select(
         id: :lang_select,
@@ -136,13 +136,13 @@ defmodule WidgetGallery do
       )
       text(content: "")
 
-      # ── Checkboxes ──
+      # --- Checkboxes ---
       label(content: section_label_multi([:check_dark, :check_notify], focused, "Checkboxes"), fg: accent, bg: bg)
       checkbox(id: :check_dark, checked: state.check_dark.checked, label: state.check_dark.label, fg: fg, bg: bg)
       checkbox(id: :check_notify, checked: state.check_notify.checked, label: state.check_notify.label, fg: fg, bg: bg)
       text(content: "")
 
-      # ── ScrollBox ──
+      # --- ScrollBox ---
       label(content: section_label(:scroller, focused, "ScrollBox"), fg: accent, bg: bg)
       scroll_box id: :scroller, scroll_y: scroll_y, height: @scroll_viewport do
         for line <- visible_lines do
