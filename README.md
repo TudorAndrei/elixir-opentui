@@ -186,12 +186,6 @@ end
 
 **Visual**: `fg`, `bg`, `opacity`, `bold`, `italic`, `underline`, `dim`, `inverse`, `border`, `border_style` (`:single`/`:double`/`:rounded`/`:heavy`)
 
-## Project status
-
-- **~88% feature parity** with OpenTUI v0.1.77
-- **~1200 tests** across 41 test files
-- Phases 1-11 complete (architecture, layout, rendering, terminal I/O, widgets, animation, advanced input)
-- Phase 12 (DX & polish) in progress
 
 ## License
 
