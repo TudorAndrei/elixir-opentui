@@ -9,7 +9,7 @@ defmodule ElixirOpentui.Precompiled do
   """
 
   @version Mix.Project.config()[:version]
-  @base_url "https://github.com/jyooi/elixir-opentui/releases/download/v#{@version}"
+  @base_url "https://github.com/TudorAndrei/elixir-opentui/releases/download/v#{@version}"
 
   @doc "Precompiled config for ElixirOpentui.NIF"
   def nif_precompiled do
@@ -26,27 +26,27 @@ defmodule ElixirOpentui.Precompiled do
   # Platforms not listed fall back to source compilation.
   defp nif_shasums do
     [
-      "aarch64-freebsd-none": "da0c50913186a923d269826e4e2a61b63e37bfabfd16da370a2a7fb5cca35dd1",
-      "aarch64-linux-gnu": "43ed2e9ca907bfe1f19f5dda73600011e437340153398d5d2294a45cf5b20bfb",
-      "aarch64-linux-musl": "cb85947eabf13e74e17271eb247ac3a947232737e14444584149920f76923db5",
-      "aarch64-macos-none": "6efd93f8df1766f4843935da49d6e8f68f4c7e00f1637521cb608918b0ed6e19",
-      "x86_64-freebsd-none": "d6a1514919716850f15f1ec103c18efe22d7a175e9f75a006eb7057e543dd01d",
-      "x86_64-linux-gnu": "f274d173bfec2e2f17d4191e608a94a9bd43681c6dd0835042bdcbfd636525d5",
-      "x86_64-linux-musl": "d36747e651d562dbbc4f2b649d39e0e166bf395c98adf15ccdbfce331241d58f",
-      "x86_64-macos-none": "13612e44a4d519f9f68ea4ff8c541710a9fce7597e6d7609c3c0552a6b7c71bf"
+      "aarch64-freebsd-none": "f47ce5d1c70e6088d95759f172166d01bf35e3d6cead6f4c93db83b83ed68d06",
+      "aarch64-linux-gnu": "6633a8b121bf411878d7668b455ab7f77f1f30f9daecd3ec1d50c83708f10162",
+      "aarch64-linux-musl": "374ec5fe765acd53991e51f34d53cc2aa0abf01fda52b6a11b78d1a2a31d8165",
+      "aarch64-macos-none": "9932b4e5cb209175e46bc718a42ba384c53f110a2a94612a894aa73c5abaa21e",
+      "x86_64-freebsd-none": "344cb12a6e8668656bc14c0a112d66dac26d7e7c84d1dae85df74bb9794a97d6",
+      "x86_64-linux-gnu": "7872627c05c71c0b8fe847e4a1602c6e93a5d841c96b4aa60db471c61d59e20a",
+      "x86_64-linux-musl": "2a7578fd33ba7db3969a97b766d21f00b742ad1a21606077937647adcae078ae",
+      "x86_64-macos-none": "7da3a239a34dad5691a4a47339c48c71e59450cffc554cb6929d6e1aa9e00d59"
     ]
   end
 
   defp edit_buffer_nif_shasums do
     [
-      "aarch64-freebsd-none": "466c11f272d04797ce5693c7ad3daa2a554a24c2e71482e4c192489e0d2daa19",
-      "aarch64-linux-gnu": "5d32a0b3a9a0b217f7559956dcdaf81c3ec6016aabfe138fcae47b6a4f4acdc3",
-      "aarch64-linux-musl": "d468ef8a302d9df66b49ceb1828b772eebfbd5a0ba3d8fe7df3faa461544d361",
-      "aarch64-macos-none": "addeeb4755610de4bf441fdecc602c314fef87ddb314de7fa98c48c19d5acdf0",
-      "x86_64-freebsd-none": "d96d8f3c86af65adcb60cc61b57972794bc0d2815e7f910a036a554c84b86b65",
-      "x86_64-linux-gnu": "1493cc59ba428f2600993de8f42dac5f0434bde448f876894ae35be69420f089",
-      "x86_64-linux-musl": "8236e789230a1a8b528ec00dfff1feea3e756be67ec9fc72160de24288e5621e",
-      "x86_64-macos-none": "a2321aee4bfd5685e9334d97e662cbf9e430fa7ff8e2c4e026a8d28c956ed408"
+      "aarch64-freebsd-none": "28f2bf160cbcb499093cbd67e1ced3ec5320a724b97d35c8c6be38068dd4720a",
+      "aarch64-linux-gnu": "d763a0b6711f78d6e72176ef07e1333c14b61f4693e7c9d4b77c08a171196881",
+      "aarch64-linux-musl": "da7e5c8ef677fcd853029ec599ab33fbad20110ac4dfcfec119c8ec6299b7fe6",
+      "aarch64-macos-none": "5a7f6d72fffef148586b891de8cfeeb4b59134d287f581c411a33d799c6f2e04",
+      "x86_64-freebsd-none": "d00527c34224ce82efdd16a99225f0dd122a7c7d982836e2ead60545f6c5650e",
+      "x86_64-linux-gnu": "d967c003933f3a603cc6cfbd62097d94dcdcedd7d2cc7e105152a1bc8a60b063",
+      "x86_64-linux-musl": "7b66a5718c86ada3d0ec2e573c0115b392c34341d81a9bbfb96665e0e0b30310",
+      "x86_64-macos-none": "7cb8d6f731e2e068cbed7fa431a849dbeb201466a77efde69dbdf39deabe3336"
     ]
   end
 end

@@ -2,7 +2,7 @@ defmodule ElixirOpentui.MixProject do
   use Mix.Project
 
   @version "0.1.0"
-  @source_url "https://github.com/jyooi/elixir-opentui"
+  @source_url "https://github.com/TudorAndrei/elixir-opentui"
 
   def project do
     [
